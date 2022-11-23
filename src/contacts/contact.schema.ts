@@ -1,5 +1,5 @@
 import { IsNotEmpty, Length, IsEmail, IsPhoneNumber } from 'class-validator';
-import { Prop, Schema } from '@nestjs/mongoose';
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import {} from 'mongoose';
 
 @Schema()
@@ -28,3 +28,5 @@ export class Contact {
   @Prop()
   country: string;
 }
+
+export const ContactSchema = SchemaFactory.createForClass(Contact)
