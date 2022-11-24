@@ -28,4 +28,9 @@ export class ContactsService {
       .limit(_limit)
       .skip((_page - 1) * _limit);
   }
+  getContactById(id: string) {
+    const c = this.ContactModel.findById(id);
+    console.log(c)
+    return c;
+  }
 }
