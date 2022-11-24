@@ -14,6 +14,7 @@ import {
   HttpCode,
   HttpStatus,
   BadRequestException,
+  Delete,
 } from '@nestjs/common';
 import { Contact } from './contact.schema';
 import { ContactsService } from './contacts.service';
@@ -50,9 +51,14 @@ export class ContactsController {
   @HttpCode(HttpStatus.NO_CONTENT)
   async updateContact(@Param('id') id: string, @Body() body: Contact) {
     try {
-      await this.service.updateContact(id, body);
+      const updated = await this.service.updateContact(id, body);
+      return updated;
     } catch (err) {
       throw new BadRequestException();
     }
+  }
+  @Delete('/:id')
+  deleteContact(@Param('id') id: string) {
+    return this.service.deleteContact(id);
   }
 }
