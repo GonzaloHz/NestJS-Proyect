@@ -29,8 +29,9 @@ export class ContactsService {
       .skip((_page - 1) * _limit);
   }
   getContactById(id: string) {
-    const c = this.ContactModel.findById(id);
-    console.log(c)
-    return c;
+    return this.ContactModel.findById(id);
+  }
+  updateContact(id: string, body: Contact) {
+    return this.ContactModel.findOneAndUpdate({ _id: id }, body);
   }
 }
