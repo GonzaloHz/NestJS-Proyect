@@ -15,8 +15,8 @@ export class ContactsService {
       const error = {
         code: 403,
         desc: {
-          short: 'Forbidden',
-          long: 'Authorization header is missing in the request',
+          short: 'Problem',
+          long: 'problem on the request',
         },
       };
       throw new HttpException(error, 403);
@@ -33,5 +33,9 @@ export class ContactsService {
   }
   updateContact(id: string, body: Contact) {
     return this.ContactModel.findOneAndUpdate({ _id: id }, body);
+  }
+  deleteContact(id: string) {
+    const contactToDelete = this.ContactModel.findById(id);
+    return this.ContactModel.findOneAndDelete(contactToDelete);
   }
 }
