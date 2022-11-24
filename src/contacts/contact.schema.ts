@@ -1,20 +1,20 @@
 import { IsNotEmpty, Length, IsEmail, IsPhoneNumber } from 'class-validator';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document } from 'mongoose';
+// import { Document } from 'mongoose';
 
 @Schema()
-export class Contact extends Document {
+export class Contact {
   @Prop()
   @IsNotEmpty()
   @Length(3, 25)
   name: string;
 
-  @Prop()
+  @Prop({ unique: true })
   @IsEmail()
   @IsNotEmpty()
   email: string;
 
-  @Prop()
+  @Prop({ unique: true })
   @IsPhoneNumber()
   @IsNotEmpty()
   phone: string;
