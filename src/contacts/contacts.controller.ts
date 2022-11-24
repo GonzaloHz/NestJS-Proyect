@@ -10,6 +10,10 @@ import {
   DefaultValuePipe,
   Param,
   NotFoundException,
+  Put,
+  HttpCode,
+  HttpStatus,
+  BadRequestException,
 } from '@nestjs/common';
 import { Contact } from './contact.schema';
 import { ContactsService } from './contacts.service';
@@ -39,5 +43,16 @@ export class ContactsController {
     const chosenContact = await this.service.getContactById(id);
     if (!chosenContact) throw new NotFoundException();
     return chosenContact;
+  }
+
+  @Put('/:id')
+  @UsePipes(new ValidationPipe({ transform: true }))
+  @HttpCode(HttpStatus.NO_CONTENT)
+  async updateContact(@Param('id') id: string, @Body() body: Contact) {
+    try {
+      await this.service.updateContact(id, body);
+    } catch (err) {
+      throw new BadRequestException();
+    }
   }
 }
